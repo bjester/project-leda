@@ -1,5 +1,7 @@
 .DS_Store
+.idea
 
+# GITHUB AUTO GITIGNORE BELOW
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
