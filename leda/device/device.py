@@ -1,10 +1,10 @@
 import abc
 
 class Device(object, metaclass = abc.ABCMeta):
-    interval = 0
+    time = 0
 
     @abc.abstractmethod
-    def start(self, interval):
+    def start(self, time):
         pass
 
     @abc.abstractmethod
