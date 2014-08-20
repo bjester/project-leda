@@ -1,10 +1,10 @@
 import abc
 
 class Device(object, metaclass=abc.ABCMeta):
-    interval = 0
+    time = 0
 
     @abc.abstractmethod
-    def init(self, interval):
+    def init(self, time):
         """Init resources and attach interval for recurring capture"""
         pass
 
