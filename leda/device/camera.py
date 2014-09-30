@@ -1,13 +1,14 @@
 from time import sleep
 import picamera
 
-WIDTH=1280
-HEIGHT=1024
+WIDTH=2592
+HEIGHT=1944
 
 
 with picamera.PiCamera() as camera:
+    camera.resolution = (WIDTH,HEIGHT)
     camera.start_preview()
-    camera.capture('~/image.jpg', format='jpg', resize=(WIDTH,HEIGHT))
+    camera.capture('/home/pi/image.jpg')
     camera.stop_preview()
 
 
