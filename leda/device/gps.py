@@ -10,7 +10,7 @@ class GPS(device.Device):
         """Init resources and attach interval for recurring capture"""
         pass
     
-    def capture():
+    def capture(self):
         """Store GPS data"""
         pass
 
@@ -18,6 +18,6 @@ class GPS(device.Device):
      #def transmit():
      #    """Transmit GPS data to Tracking Radio"""
 
-    def end():
+    def end(self):
         """If necessary, deallocate resources"""
         pass
