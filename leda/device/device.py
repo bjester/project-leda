@@ -1,23 +1,21 @@
 ### The interface common to all project Leda devices
 ### author:  Blaine Jester
-import abc
 
-
-class Device(object, metaclass=abc.ABCMeta):
+class Device(object):
     """Enforces a common interface for all project Leda devices"""
     time = 0
 
-    @abc.abstractmethod
-    def init(self, time):
+    #abstractmethod
+    def begin(self, time):
         """Init resources and attach interval for recurring capture"""
-        pass
+        raise NotImplementedError('Abstract method not implemented')
 
-    @abc.abstractmethod
+    #abstractmethod
     def capture(self):
         """Take a picture, capture measurements, etc"""
-        pass
+        raise NotImplementedError('Abstract method not implemented')
 
-    @abc.abstractmethod
+    #abstractmethod
     def end(self):
         """If necessary, deallocate resources"""
-        pass
+        raise NotImplementedError('Abstract method not implemented')

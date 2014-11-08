@@ -9,7 +9,7 @@ class Camera(device.Device):
     """Project Ledas camera object"""
 
     # __init__(self, extraParams) acts like a constructor but this is a normal function
-    def init(self, time):
+    def begin(self, time):
         """Init resources and attach interval for recurring capture"""
         pass
     

@@ -1,11 +1,11 @@
 from leda.device import camera
-from leda.device import gps
+from leda.device import position
 
 class Leda:
     """Handles Project Leda system logic"""
     def __init__(self):
         self.ledaCam = camera.Camera()
-        self.ledaGPS = gps.GPS()
+        self.ledaGPS = position.GPS()
 
     def test(self):
         self.ledaCam.capture()
