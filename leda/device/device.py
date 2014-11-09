@@ -3,10 +3,10 @@
 
 class Device(object):
     """Enforces a common interface for all project Leda devices"""
-    time = 0
+    status = 'ready' # or 'busy' or 'suspended'
 
     #abstractmethod
-    def begin(self, time):
+    def begin(self):
         """Init resources and attach interval for recurring capture"""
         raise NotImplementedError('Abstract method not implemented')
 
