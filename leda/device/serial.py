@@ -22,17 +22,17 @@ class Serial(device.Device):
     def capture(self):
         """Capture all daughter board sensor data"""
         port.write('t') #request outside temperature
-		temp = port.read(self.RECV_BYTES) #get temp
-		port.write('h')
-		humidity = port.read(self.RECV_BYTES)
-		port.write('p')
-		pressure = port.read(self.RECV_BYTES)
-		port.write('x')
-		accel_x = port.read(self.RECV_BYTES)
-		port.write('y')
-		accel_y = port.read(self.RECV_BYTES)
-		port.write('z')
-		accel_z = port.read(self.RECV_BYTES)
+        temp = port.read(self.RECV_BYTES) #get temp
+        port.write('h')
+        humidity = port.read(self.RECV_BYTES)
+        port.write('p')
+        pressure = port.read(self.RECV_BYTES)
+        port.write('x')
+        accel_x = port.read(self.RECV_BYTES)
+        port.write('y')
+        accel_y = port.read(self.RECV_BYTES)
+        port.write('z')
+        accel_z = port.read(self.RECV_BYTES)
         return (temp, humidity, pressure, accel_x, accel_y, accel_z)
 
 

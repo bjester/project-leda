@@ -41,11 +41,11 @@ class Leda:
     def begin(self):
         self.gps_thread.start()
         self.thermo_thread.start()
-		self.serial_thread.start()
+        self.serial_thread.start()
         while True:  #infinite loop
-			# Have cams active only when the altitude is high enough
-			if self.ledaGPS.get_position() > CAM_ALTITUDE:
+            # Have cams active only when the altitude is high enough
+            if self.ledaGPS.get_position() > CAM_ALTITUDE:
                 self.ledaCam.capture()
-		    time.sleep(camInterval)	
+            time.sleep(camInterval) 
             self.ledaRadio.transmit(self.ledaGPS.get_position())
 
