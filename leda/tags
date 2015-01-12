@@ -1,0 +1,82 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Camera	device/camera.py	/^class Camera(device.Device):$/;"	c
+Device	device/device.py	/^class Device(object):$/;"	c
+GPS	device/position.py	/^class GPS(device.Device):$/;"	c
+GPSTest	test/device/position.py	/^class GPSTest(unittest.TestCase):$/;"	c
+Leda	leda.py	/^class Leda:$/;"	c
+Logger	data/logger.py	/^class Logger():$/;"	c
+MAX_HEIGHT	device/camera.py	/^MAX_HEIGHT=1944$/;"	v
+MAX_WIDTH	device/camera.py	/^MAX_WIDTH=2592$/;"	v
+MockGPS	test/mock/position.py	/^class MockGPS(GPS):$/;"	c
+MockLogger	test/mock/logger.py	/^class MockLogger():$/;"	c
+MockSession	test/mock/position.py	/^class MockSession():$/;"	c
+Radio	device/radio.py	/^class Radio(device.Device):$/;"	c
+Serial	device/serial.py	/^class Serial(device.Device):$/;"	c
+Thermo	device/thermo.py	/^class Thermo(device.Device):$/;"	c
+__exit__	data/logger.py	/^    def __exit__(self, exc_type, exc_val, exc_tb):$/;"	m	class:Logger	file:
+__init__	data/logger.py	/^    def __init__(self, fileName):$/;"	m	class:Logger
+__init__	device/position.py	/^    def __init__(self, logger):$/;"	m	class:GPS
+__init__	leda.py	/^    def __init__(self, serial_device, baudrate, serial_timeout):$/;"	m	class:Leda
+__init__	test/mock/logger.py	/^    def __init__(self, fileName):$/;"	m	class:MockLogger
+__retrieve	device/position.py	/^    def __retrieve(self):$/;"	m	class:GPS	file:
+accel_x	device/serial.py	/^		accel_x = port.read(self.RECV_BYTES)$/;"	v	class:Serial
+accel_y	device/serial.py	/^		accel_y = port.read(self.RECV_BYTES)$/;"	v	class:Serial
+accel_z	device/serial.py	/^		accel_z = port.read(self.RECV_BYTES)$/;"	v	class:Serial
+address	device/thermo.py	/^    address = None$/;"	v	class:Thermo
+begin	data/logger.py	/^    def begin(self, header):$/;"	m	class:Logger
+begin	device/camera.py	/^    def begin(self):$/;"	m	class:Camera
+begin	device/device.py	/^    def begin(self):$/;"	m	class:Device
+begin	device/position.py	/^    def begin(self, time):$/;"	m	class:GPS
+begin	leda.py	/^    def begin(self):$/;"	m	class:Leda
+begin	test/mock/logger.py	/^    def begin(self, header):$/;"	m	class:MockLogger
+begin	test/mock/position.py	/^    def begin(self):$/;"	m	class:MockGPS
+bus	device/thermo.py	/^    bus = None #http:\/\/www.prwatch.org\/files\/images\/nuns_on_the_bus.jpg$/;"	v	class:Thermo
+bytes	data/logger.py	/^    bytes = 0$/;"	v	class:Logger
+cam	device/camera.py	/^    cam = picamera.PiCamera()$/;"	v	class:Camera
+camInterval	leda.py	/^camInterval = 2                 # "fairly often"$/;"	v
+capture	device/camera.py	/^    def capture(self):$/;"	m	class:Camera
+capture	device/device.py	/^    def capture(self):$/;"	m	class:Device
+capture	device/position.py	/^    def capture(self):$/;"	m	class:GPS
+capture	device/radio.py	/^    def capture(self):$/;"	m	class:Radio
+capture	device/serial.py	/^    def capture(self):$/;"	m	class:Serial
+capture	device/thermo.py	/^    def capture(self):$/;"	m	class:Thermo
+end	data/logger.py	/^    def end(self):$/;"	m	class:Logger
+end	device/camera.py	/^    def end(self):$/;"	m	class:Camera
+end	device/device.py	/^    def end(self):$/;"	m	class:Device
+end	device/position.py	/^    def end(self):$/;"	m	class:GPS
+end	device/radio.py	/^    def end(self):$/;"	m	class:Radio
+end	device/serial.py	/^    def end(self):$/;"	m	class:Serial
+end	device/thermo.py	/^    def end(self):$/;"	m	class:Thermo
+end	test/mock/logger.py	/^    def end(self):$/;"	m	class:MockLogger
+fileHandle	data/logger.py	/^    fileHandle = None$/;"	v	class:Logger
+fileIndex	data/logger.py	/^    fileIndex = 0$/;"	v	class:Logger
+fileName	data/logger.py	/^    fileName = None$/;"	v	class:Logger
+get_altitude	device/position.py	/^    def get_altitude(self):$/;"	m	class:GPS
+get_position	device/position.py	/^    def get_position(self):$/;"	m	class:GPS
+gpsInterval	leda.py	/^gpsInterval  = 1                # "often"$/;"	v
+humidity	device/serial.py	/^		humidity = port.read(self.RECV_BYTES)$/;"	v	class:Serial
+init	device/radio.py	/^    def init(self)$/;"	m	class:Radio
+init	device/serial.py	/^    def init(self, device_path, baud, tout)$/;"	m	class:Serial
+init	device/thermo.py	/^    def init(self, time, address, bus):$/;"	m	class:Thermo
+limit	data/logger.py	/^    limit = 1024*1024*1024$/;"	v	class:Logger
+logger	device/position.py	/^    logger = None$/;"	v	class:GPS
+next	test/mock/position.py	/^    def next(self):$/;"	m	class:MockSession
+placeholder	leda.py	/^placeholder = 1                 # Must replace this!!!!$/;"	v
+pressure	device/serial.py	/^		pressure = port.read(self.RECV_BYTES)$/;"	v	class:Serial
+radioInterval	leda.py	/^radioInterval = gpsInterval     # as often as "often"$/;"	v
+record	data/logger.py	/^    def record(self, row):$/;"	m	class:Logger
+record	test/mock/logger.py	/^    def record(self, row):$/;"	m	class:MockLogger
+report	device/position.py	/^    report = None$/;"	v	class:GPS
+serialInterval	leda.py	/^serialInterval = 5              # \\o.O\/$/;"	v
+session	device/position.py	/^    session = None$/;"	v	class:GPS
+setUp	test/device/position.py	/^    def setUp(self):$/;"	m	class:GPSTest
+status	device/device.py	/^    status = 'ready' # or 'busy' or 'suspended'$/;"	v	class:Device
+temp	device/serial.py	/^		temp = port.read(self.RECV_BYTES) #get temp$/;"	v	class:Serial
+test_capture_parse	test/device/position.py	/^    def test_capture_parse(self):$/;"	m	class:GPSTest
+thermoInterval	leda.py	/^thermoInterval = 0.75           # exactly 750 ms$/;"	v
+update	leda.py	/^def update(logger, device, interval):$/;"	f

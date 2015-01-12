@@ -4,44 +4,48 @@ import time
 import threading as th #Just to reduce horizontal width of code.
 
 #Replace place holders (half-second) when interval is decided upon
-#Thermometer = 750 milliseconds
-#GPS  = "often"
-#cams = "fairly often at high altitudes"
-placeholder = 0.5
+gpsInterval  = 1                # "often"
+camInterval = 2                 # "fairly often"
+thermoInterval = 0.75           # exactly 750 ms
+radioInterval = gpsInterval     # as often as "often"
+serialInterval = 5              # \o.O/
+placeholder = 1                 # Must replace this!!!!
 
-def update(device, interval):
-#Intended for one thread per device capture functions.
-    while True:     #WIP: while (not stop_condition) - 
-                    #think about what to do about condition
-                    #however only cams will need a stop condition (alt too low)
-        device.capture()
+
+def update(logger, device, interval):
+# Intended for one thread per device capture->logger
+    while True:     # infinite loop 
+        logger.record(device.capture())
         time.sleep(interval)
-    #Otherwise, don't do anything.
     return
+
 
 class Leda:
     """Handles Project Leda system logic"""
-    def __init__(self):
+    def __init__(self, serial_device, baudrate, serial_timeout):
         self.log        = logger.Logger("leda_log.txt")
         self.ledaCam    = camera.Camera()
         self.ledaGPS    = position.GPS(self.log)
+        self.ledaRadio = radio.Radio()
         self.ledaThermo = thermo.Thermo()
-        #Create the threads per device - interval is placeholder for now.
-        self.cam_thread    = th.Thread(target = update, 
-                                         args = (self.ledaCam, placeholder))
+        self.ledaSerial = serial.Serial(serial_device, baudrate, serial_time)
+        #Create the threads for devices using logger 
         self.gps_thread    = th.Thread(target = update, 
-                                         args = (self.ledaGPS, placeholder))
+                                         args = (self.log, self.ledaGPS, placeholder))
         self.thermo_thread = th.Thread(target = update, 
-                                         args = (self.ledaThermo, 0.75))
+                                         args = (self.log, self.ledaThermo, thermoInterval))
+        self.serial_thread = th.Thread(target = update, 
+                                         args = (self.log, self.ledaSerial, serialInterval))
 
-    def scheduler(self):
+
+    def begin(self):
         self.gps_thread.start()
         self.thermo_thread.start()
-        while True:
-        #WIP: Have cams active only when the altitude is high enough
-            pass
-        pass
+		self.serial_thread.start()
+        while True:  #infinite loop
+			# Have cams active only when the altitude is high enough
+			if self.ledaGPS.get_position() > CAM_ALTITUDE:
+                self.ledaCam.capture()
+		    time.sleep(camInterval)	
+            self.ledaRadio.transmit(self.ledaGPS.get_position())
 
-    def test(self):
-        self.ledaCam.capture()
-        print("testing; picture taken")
