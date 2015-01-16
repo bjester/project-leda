@@ -38,7 +38,7 @@ class Leda:
                                          args = (self.log, self.ledaSerial, serialInterval))
 
 
-    def begin(self):
+    def start(self):
         self.gps_thread.start()
         self.thermo_thread.start()
         self.serial_thread.start()
