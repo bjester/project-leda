@@ -9,14 +9,16 @@ class Thermo(device.Device):
     """Project Ledas Thermostat object"""
     bus = None #http://www.prwatch.org/files/images/nuns_on_the_bus.jpg
     address = None
-    # __init__(self, extraParams) acts like a constructor but this is a normal function
     #bus should be a SMBus initialized externally. I'd like to only have one instance of I2C shared by all the devices
     #address should be the thermometer's address on I2C
-    def init(self, time, address, bus):
-        """Init resources and attach interval for recurring capture"""
+    def __init__(self, time, address, bus):
         self.bus = bus
         self.address = address
     
+    def __enter__(self):
+        """Init resources and attach interval for recurring capture"""
+        pass
+        
     def capture(self):
         """Capture temperature data"""
         temp = self.bus.read_word_data(self.address,0xAA) #0xAA is the command to read the temperature from the thermometer
@@ -26,6 +28,7 @@ class Thermo(device.Device):
         temp = temp / 256.0 #scale thermometer number to celcius
         return temp
 
-    def end(self):
+    def __exit__(self):
         """If necessary, deallocate resources"""
         pass
+

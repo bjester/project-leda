@@ -5,18 +5,24 @@ from leda.device import device
 
 class Radio(device.Device):
     """Project Ledas Radio object"""
-    def init(self)
-        """Init resources and attach interval for recurring capture"""
+
+    def __init__(self):
         pass
-    
+
+
+    def __enter__(self):
+        """Init resources"""
+        pass    
+
+    def __exit__(self):
+        """If necessary, deallocate resources"""
+        pass
+
     # We probably arent receiving anything
     def capture(self):
         """Capture ??? data"""
         pass
 
-    def end(self):
-        """If necessary, deallocate resources"""
-        pass
     
     def transmit(self, position):
         """Transmit position"""

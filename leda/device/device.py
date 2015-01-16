@@ -3,11 +3,11 @@
 
 class Device(object):
     """Enforces a common interface for all project Leda devices"""
-    status = 'ready' # or 'busy' or 'suspended'
 
     #abstractmethod
-    def begin(self):
-        """Init resources and attach interval for recurring capture"""
+    # WHEN using "with", this ensures that __exit__() is called on object destruction
+    def __enter__(self):
+        """Init resources"""
         raise NotImplementedError('Abstract method not implemented')
 
     #abstractmethod
@@ -16,6 +16,7 @@ class Device(object):
         raise NotImplementedError('Abstract method not implemented')
 
     #abstractmethod
-    def end(self):
+    def __exit__(self, type, value, traceback):
         """If necessary, deallocate resources"""
         raise NotImplementedError('Abstract method not implemented')
+
