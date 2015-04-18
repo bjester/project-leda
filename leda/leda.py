@@ -2,6 +2,7 @@ import zope.event
 import time
 from device import camera, uartSerial# jGps, radio, twiSerial, piGps, thermo
 from data import logger
+from event import capture_image
 #import threading as th #Just to reduce horizontal width of code.
 
 
@@ -25,6 +26,11 @@ class Leda:
         '''Init data logger, camera if necessary.'''
         # Write in the logger's labels as a introductory row- call this after header is written!
         #self.log.record(["TimeStamp", "Temperature1", "Temperature2", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude"]); #not needed for writing binary files
+        zope.event.append(self.handle)
+
+        captureEv = capture_image.CaptureEvent('Hello!')
+        zope.event.notify(captureEv)
+
         pass
 
         #result.append(GPS data here)
@@ -35,3 +41,5 @@ class Leda:
             self.ledaCam.capture()
             time.sleep(self.cam_period)
 
+    def handle(self, event):
+        event.trigger()
