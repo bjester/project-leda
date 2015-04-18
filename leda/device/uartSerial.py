@@ -10,25 +10,22 @@ class uartSerial(device.Device):
     #address should be the thermometer's address on I2C
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
-        #self.RECV_BYTES = 4
+        self.RECV_BYTES = 1 #one byte at a time
         self.device = device_path
         self.port = serial.Serial(device_path, baudrate=baud, timeout=tout)
 
 
     def capture(self):
         """Capture all daughter board sensor data"""
-        self.port.write('t') #request outside temperature
-        temp = self.port.read(self.RECV_BYTES) #get temp
-        self.port.write('h')
-        humidity = self.port.read(self.RECV_BYTES)
-        self.port.write('p')
-        pressure = self.port.read(self.RECV_BYTES)
-        self.port.write('x')
-        accel_x = self.port.read(self.RECV_BYTES)
-        self.port.write('y')
-        accel_y = self.port.read(self.RECV_BYTES)
-        self.port.write('z')
-        accel_z = self.port.read(self.RECV_BYTES)
+        # request 'S\r\n'
+        self.port.write('S')
+        self.port.write('\r')
+        self.port.write('\n')
+
+        # wait for Ack that data is ready  (receive 'A\r\n')
+        # while last two bits are not \r\n
+        block = self.port.read(self.RECV_BYTES) #get temp
+
         return (temp, humidity, pressure, accel_x, accel_y, accel_z)
 
 
