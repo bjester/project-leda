@@ -1,24 +1,22 @@
-from device import camera, jGps, radio, twiSerial  # piGps, thermo
-from data import logger
+import zope.event
 import time
-import threading as th #Just to reduce horizontal width of code.
+from device import camera, uartSerial# jGps, radio, twiSerial, piGps, thermo
+from data import logger
+#import threading as th #Just to reduce horizontal width of code.
 
 
 fairly_often = 1
 
-def update(device, interval):
-# Intended for one thread per device.
-    time.sleep(interval)
-    return device.capture()
 
 class Leda:
     """Handles Project Leda system logic"""
 
-    def __init__(self, se, serial_device, baudrate):
-        self.sleep_time      = sleep_time 
-        self.log             = logger.Logger("leda_log.txt")
+    def __init__(self, cam_period, serial_period, serial_path, baudrate):
+        self.serial_period      = serial_period 
+        self.cam_period         = cam_period
+        self.log             = logger.Logger("leda_log.txt") # needs to update each run 
         self.ledaCam         = camera.Camera()
-        self.ledaSerial      = twiSerial.TwiSerial(serial_device, baudrate, fairly_often)
+        #self.ledaSerial      = twiSerial.TwiSerial(serial_path, baudrate, serial_period)
         #self.ledaGps         = jGps.PiGps("/dev/ttyUSB0", 4800, fairly_often)  # /dev/jGps ??  moved to daughter board
         #self.ledaRadio       = radio.Radio() #moved to proprietary module
         #self.CAM_ALTITUDE    = cam_altitude #take pics above this altitude
@@ -33,7 +31,7 @@ class Leda:
         while True:
             # Don't have altitude data, schedule occasional captures
             # Event system??
-            self.log.record(self.ledaSerial.capture())
+            #self.log.record(self.ledaSerial.capture())
             self.ledaCam.capture()
-            time.sleep(self.cam_timeout)
+            time.sleep(self.cam_period)
 
