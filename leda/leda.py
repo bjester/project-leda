@@ -14,29 +14,26 @@ def update(device, interval):
 class Leda:
     """Handles Project Leda system logic"""
 
-    def __init__(self, gps_timeout, cam_timeout, radio_timeout, serial_timeout, serial_device, baudrate, cam_altitude):
-        self.CAM_ALTITUDE    = cam_altitude
-        self.cam_timeout     = cam_timeout
+    def __init__(self, se, serial_device, baudrate):
+        self.sleep_time      = sleep_time 
         self.log             = logger.Logger("leda_log.txt")
         self.ledaCam         = camera.Camera()
-        self.ledaGps         = jGps.PiGps("/dev/ttyUSB0", 4800, fairly_often)  # /dev/jGps !!!!!!!!! make the change
-        self.ledaRadio       = radio.Radio()
         self.ledaSerial      = twiSerial.TwiSerial(serial_device, baudrate, fairly_often)
+        #self.ledaGps         = jGps.PiGps("/dev/ttyUSB0", 4800, fairly_often)  # /dev/jGps ??  moved to daughter board
+        #self.ledaRadio       = radio.Radio() #moved to proprietary module
+        #self.CAM_ALTITUDE    = cam_altitude #take pics above this altitude
 
     def start(self):
-        '''Acquire information, unify data and log them.'''
-        # P.S Above new plan made while Jeff is sleeping- for CSV coherence.
+        '''Init data logger, camera if necessary.'''
         # Write in the logger's labels as a introductory row- call this after header is written!
-        self.log.record(["Pulse", "Tempurature", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude", "Time"])
-
-        #Acquire return values from these threads, append them together and record.
-        result = self.ledaSerial.capture()
+        #self.log.record(["TimeStamp", "Temperature1", "Temperature2", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude"]); #not needed for writing binary files
+        pass
 
         #result.append(GPS data here)
         while True:
-            # Have cams active only when the altitude is high enough.
-            if self.ledaGps.get_altitude() > self.CAM_ALTITUDE:
-                self.ledaCam.capture()
+            # Don't have altitude data, schedule occasional captures
+            # Event system??
+            self.log.record(self.ledaSerial.capture())
+            self.ledaCam.capture()
             time.sleep(self.cam_timeout)
-            self.ledaRadio.transmit(self.ledaGps.get_position())
 
