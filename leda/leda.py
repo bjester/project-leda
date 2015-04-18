@@ -24,18 +24,19 @@ class Leda:
         self.ledaSerial      = twiSerial.TwiSerial(serial_device, baudrate, fairly_often)
 
     def start(self):
-    '''Acquire information, unify data and log them.'''
-    #P.S Above new plan made while Jeff is sleeping- for CSV coherence.
-	#Write in the logger's labels as a introductory row- call this after header is written!
-	self.log.record(["Pulse", "Tempurature", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude", "Time"])
+        '''Acquire information, unify data and log them.'''
+        # P.S Above new plan made while Jeff is sleeping- for CSV coherence.
+        # Write in the logger's labels as a introductory row- call this after header is written!
+        self.log.record(["Pulse", "Tempurature", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude", "Time"])
+
         #Acquire return values from these threads, append them together and record.
-	result = self.ledaSerial.capture()
-	#result.append(GPS data here)
+        result = self.ledaSerial.capture()
+
+        #result.append(GPS data here)
         while True:
             # Have cams active only when the altitude is high enough.
             if self.ledaGps.get_altitude() > self.CAM_ALTITUDE:
                 self.ledaCam.capture()
             time.sleep(self.cam_timeout)
             self.ledaRadio.transmit(self.ledaGps.get_position())
-
 
