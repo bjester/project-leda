@@ -12,7 +12,8 @@ cam_timeout = 15                # "fairly often"
 thermo_timeout = 0.75           # exactly 750 ms
 radio_timeout = gps_timeout     # as often as "often"
 serial_timeout = 0.5            # twi serial
-serial_path = "/dev/sensors"    # device (in /dev directory)
+#serial_path = "/dev/sensors"   # device (in /dev directory)
+serial_path = "/dev/ttyACM1"       #   CHANGE BACK TO ABOVE LINE 
 baud = 38400                    # twi serial baud rate
 cam_altitude = 50000            # altitude that camera begins taking pictures
 

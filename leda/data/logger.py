@@ -11,8 +11,8 @@ class Logger():
         self.limit = 1024*1024*1024
         self.fileHandle = None
         self.fileName = fileName
-        self.fileHandle = open(self.fileName, 'w')
-        self.csvHandle = csv.writer(self.fileHandle)
+        #self.fileHandle = open(self.fileName, 'w')
+        #self.csvHandle = csv.writer(self.fileHandle)
 
     def begin(self, header):
         """Start file logging, add header to file"""
@@ -21,8 +21,11 @@ class Logger():
 
     def record(self, row):
         """Record data row"""
+        print "recorded row:", row
         # self.bytes += self.csvHandle.writerows(data)
-        self.csvHandle.writerows(row)
+        with open(self.fileName, 'wb') as csvfile:
+            logwriter = csv.writer(csvfile, delimiter=' ', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
+            logwriter.writerows(row)
 
         # How to get bytes added with each addition? Rotate files, can we use linux util?
         if self.bites > self.limit:
@@ -30,6 +33,8 @@ class Logger():
             self.fileIndex += 1
             self.fileName = "%s.%d" % (self.fileName, self.fileIndex)
             self.start()
+        # Dump entries to file as often as possible
+        #self.fileHandle.flush()
 
     def end(self):
         """End logging"""
@@ -39,3 +44,4 @@ class Logger():
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.end()
+	
