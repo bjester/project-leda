@@ -1,3 +1,8 @@
+#So as to not waste tremendous amounts of data, do we
+#  need to write our data in 512kb blocks because of
+#  SD card????
+
+
 import csv
 
 class Logger():

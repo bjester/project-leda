@@ -12,6 +12,7 @@ serial_period= 1                # twi serial
 #serial_path = "/dev/sensors"   # device (in /dev directory)
 serial_path = "/dev/ttyACM1"       #   CHANGE BACK TO ABOVE LINE 
 baud = 38400                    # twi serial baud rate
+serial_timeout = 1               # max time to wait for serial response  
 
 
 
@@ -21,7 +22,8 @@ baud = 38400                    # twi serial baud rate
 t = leda.Leda(cam_period, 
               serial_period,
               serial_path,
-              baud)
+              baud,
+              serial_timeout)
 
 t.start()
 
