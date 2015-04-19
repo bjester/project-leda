@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from leda import leda
+import os
 
 
 
@@ -20,11 +21,14 @@ serial_timeout = 1               # max time to wait for serial response
 
 
 #########################################################
-t = leda.Leda(cam_period, 
+if __name__ = "__main__":
+    os.system("sudo killall -11 gpsd")
+    os.system("sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.pid")
+    t = leda.Leda(cam_period, 
               serial_period,
               serial_path,
               baud,
               serial_timeout)
 
-t.start()
+    t.start()
 
