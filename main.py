@@ -21,7 +21,7 @@ serial_timeout = 1               # max time to wait for serial response
 
 
 #########################################################
-if __name__ = "__main__":
+if __name__ == "__main__":
     os.system("sudo killall -11 gpsd")
     os.system("sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.pid")
     t = leda.Leda(cam_period, 
@@ -30,5 +30,5 @@ if __name__ = "__main__":
               baud,
               serial_timeout)
 
-    t.start()
+    t.start() #launch the platform
 
