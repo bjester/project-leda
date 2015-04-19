@@ -1,6 +1,8 @@
 """" Daughter Board - Pi serial interface"""""
 import device
 import serial
+import time
+import io
 
 class UartSerial(device.Device):
     """Project Ledas Serial object"""
@@ -9,27 +11,24 @@ class UartSerial(device.Device):
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
         self.device = device_path
-        self.port = serial.Serial(device_path, baud, tout)
+        self.ser = serial.Serial(device_path, baudrate=baud, timeout=tout)
+        self.port = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser))
 
 
     def capture(self):
         """Capture all daughter board sensor data"""
         # request 'S\r\n'
-        self.port.write('S\r\n')
+        self.port.write(unicode("S\r\n"))
         # wait for Ack that data is ready  (receive 'A\r\n')
-        ack = serialobj.read(3);
-        if ack == 'A\r\n' :
+        ack = self.port.read(3);
+        if ack == "A\r\n" :
             return false # received bad data
-
+        print("Ack received")
         # request the data
-        self.port.write('R\r\n')
-        # while last two bits are not \r\n
-        bytes = []
-        while bytes[-(bytes.size-1):-bytes.size] != '\r\n' :
-            bytes += serialobj.read(1)
-
-        return bytes[:bytes.size-2]
-
+        self.port.write(unicode("R\r\n"))
+        time.sleep(1)
+        # read the data
+        return self.port.readline()
 
     def end(self):
         """If necessary, deallocate resources"""

@@ -1,3 +1,4 @@
+import time
 import picamera
 from leda.device import device
 
@@ -21,7 +22,7 @@ class Camera(): #device.Device):
         """Take and store a picture"""
         with picamera.PiCamera() as self.cam:
             self.cam.resolution = (MAX_WIDTH, MAX_HEIGHT)
-            name = self.fileName + str(self.n_picture) + ".jpg"
+            name = self.fileName + " " + time.asctime(time.localtime()) + ".jpg"
             self.cam.capture(name)
             self.n_picture += 1  # because ++n_picture is Not increment
 

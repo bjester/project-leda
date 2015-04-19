@@ -13,7 +13,7 @@ class Logger():
         self.fileName = fileName
         self.fileHandle = None
 
-    def begin(self, header):
+    def begin(self):
         """Start file logging, add header to file"""
         self.fileHandle = open(self.fileName, 'wb')
 

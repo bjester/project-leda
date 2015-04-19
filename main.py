@@ -10,7 +10,8 @@ from leda import leda
 cam_period = 5                 # "fairly often"
 serial_period= 1                # twi serial
 #serial_path = "/dev/sensors"   # device (in /dev directory)
-serial_path = "/dev/ttyACM1"       #   CHANGE BACK TO ABOVE LINE 
+#serial_path = "/dev/ttyACM1"       #   CHANGE BACK TO ABOVE LINE 
+serial_path = "/dev/ttyUSB0"        # for USB mini to A adapter
 baud = 38400                    # twi serial baud rate
 serial_timeout = 1               # max time to wait for serial response  
 
