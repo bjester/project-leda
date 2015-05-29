@@ -1,6 +1,5 @@
 import zope.event
 #import asyncio # requires python 3.4+
-import time
 # uartSerial requires python 2.7
 from device import camera, uartSerial #jGps, radio, twiSerial, piGps, thermo
 from data import logger
@@ -18,7 +17,7 @@ class Leda:
         self.ledaCam         = camera.Camera()
         #self.ledaCam.begin()
 
-        self.log             = logger.Logger("leda_log " + time.asctime(time.localtime()) + ".txt") # needs to update each run 
+        self.log             = logger.Logger("leda_log")
         self.log.begin()
 
         self.serial_period      = serial_period 
