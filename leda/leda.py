@@ -9,6 +9,7 @@ from event import capture_image
 
 fairly_often = 1
 
+# Send event for camera (begin image capture), receive sensor data (1 action)
 
 class Leda:
     """Handles Project Leda system logic"""
@@ -20,9 +21,9 @@ class Leda:
         self.log             = logger.Logger("leda_log")
         self.log.begin()
 
-        self.serial_period      = serial_period 
-        self.cam_period         = cam_period
-        self.ledaSerial       = uartSerial.UartSerial(serial_path, baudrate, serial_timeout)
+        self.serial_period   = serial_period 
+        self.cam_period      = cam_period
+        self.ledaSerial      = uartSerial.UartSerial(serial_path, baudrate, serial_timeout)
         #self.ledaSerial.begin()
 
         #self.ledaSerial      = twiSerial.TwiSerial(serial_path, baudrate, serial_period)
@@ -31,22 +32,15 @@ class Leda:
         #self.CAM_ALTITUDE    = cam_altitude #take pics above this altitude
 
     def start(self):
-        '''Init data logger, camera if necessary.'''
-        # Write in the logger's labels as a introductory row- call this after header is written!
-        #self.log.append(["TimeStamp", "Temperature1", "Temperature2", "Humidity", "Pressure", "Altitude", "Longitude", "Latitude"]); #not needed for writing binary files
-        #zope.event.subscribers.append(self.handle)
-        #captureEv = capture_image.CaptureImage('Hello!')
-        #zope.event.notify(captureEv)
-
-        #result.append(GPS data here)
         while True:
-            # Don't have altitude data, schedule occasional captures
-            # Event system??
-            debug = self.ledaSerial.capture()
-            print(debug)
-            self.log.append(debug)
-            self.ledaCam.capture()
-            time.sleep(self.cam_period)
+            time_intial = time.process_time()
+            #Fire off capture event
+            #receive sensor data
+            #uart WIP
+            #catch camera finished capture event.... i think
+            delta = time.process_time() - time_initial
+            if fairly_often > delta:
+                time.sleep(fairly_often - delta)
 
 
     def handle(self, event):
