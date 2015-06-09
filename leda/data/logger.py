@@ -1,4 +1,4 @@
-#So as to not waste tremendous amounts of data, do we
+#So as to not waste tremendous amounts of memory, do we
 #  need to write our data in 512kb blocks because of
 #  SD card????
 
@@ -17,7 +17,7 @@ class Logger():
         self.openFile = None #required by close()
         self.fileHandle = None #csv file
 
-    def begin(self):
+    def __enter__(self):
         """Start file logging, add header to file"""
         self.currentLog = self.fileName + " " + time.asctime(time.localtime()) + ".csv" # timestamp ensures unique file name each run 
         self.openFile = open(self.currentLog, 'w')
@@ -33,14 +33,15 @@ class Logger():
         else:
             print("Must call Logger.begin() before Logger.append()")
 
-    def end(self):
+    def closeLog(self):
         """End logging"""
+        print("__exit__ was called")
         if self.fileHandle is not None:
             self.openFile.close()
             self.fileHandle = None
             self.openFile = None
 
-    def printLog(self):
+    def __exit__(self):
         """Demonstration of (basic) decoding of log file"""
         if self.currentLog is not None:
             f = open(self.currentLog, 'r')
@@ -62,14 +63,12 @@ class Logger():
                 f.close()
 
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.end()
 	
 #log = Logger("test")
-#log.begin()
+#log.__enter__()
 #log.append(45)
 #log.append(872)
 #log.append(6)
-#log.end()
+#log.__exit__()
 #log.printLog()
 

@@ -4,9 +4,7 @@ import serial
 import time
 import io
 
-class UartSerial(device.Device):
-    """Project Ledas Serial object"""
-
+class Uart:
 
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
@@ -32,8 +30,7 @@ class UartSerial(device.Device):
         i = 0
         while True:
             temp = self.ser.readline() #need to remove line break
-            #temp = (self.port.read(3)).strip()
-            print(temp, i)
+            #temp = (self.port.read(3)).strip() print(temp, i)
             result += temp
             i += 1
             if i > 5:
