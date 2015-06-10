@@ -14,14 +14,14 @@ fairly_often = 1000
 class Leda:
     """Handles Timing, data capture and logging"""
 
-    def __init__(self, cam_period, image_path, serial_period, serial_path, baudrate, serial_timeout):
+    def __init__(self, log_name, cam_period, image_path, serial_period, serial_path, baudrate, serial_timeout):
         # assign capture periods
-        self.cam_period      = cam_period
-        self.serial_period   = serial_period 
+        self.cam_period       = cam_period
+        self.serial_period    = serial_period 
         # initialize devices
-        self.ledaCam         = Camera(image_path)
-        self.log             = logger.Logger("leda_log")
-        self.ledaSerial      = uartSerial.UartSerial(serial_path, baudrate, serial_timeout)
+        self.cam              = camera.Camera(image_path)
+        self.log              = logger.Logger(log_name)
+        self.uart             = uart.Uart(serial_path, baudrate, serial_timeout)
 
 
     def start(self):
