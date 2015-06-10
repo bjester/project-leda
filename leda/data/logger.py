@@ -3,7 +3,7 @@
 #  SD card????
 
 
-import datetime
+from datetime import datetime
 import time
 import csv
 
@@ -17,17 +17,16 @@ class Logger():
         self.openFile = None #required by close()
         self.fileHandle = None #csv file
 
-    def __enter__(self):
+    def openLog(self):
         """Start file logging, add header to file"""
         self.currentLog = self.fileName + " " + time.asctime(time.localtime()) + ".csv" # timestamp ensures unique file name each run 
         self.openFile = open(self.currentLog, 'w')
         self.fileHandle = csv.writer(self.openFile)
 
-    def append(self, data):
+    def append(self, data, timeStamp):
         """Record data row"""
         if self.fileHandle is not None:
-            now = datetime.datetime.now()
-            row = [[time.mktime(now.timetuple())],
+            row = [[time.mktime(timeStamp.timetuple())],
                    [data]]
             self.fileHandle.writerow(row)
         else:
@@ -35,13 +34,12 @@ class Logger():
 
     def closeLog(self):
         """End logging"""
-        print("__exit__ was called")
         if self.fileHandle is not None:
             self.openFile.close()
             self.fileHandle = None
             self.openFile = None
 
-    def __exit__(self):
+    def decodeLastLog(self):
         """Demonstration of (basic) decoding of log file"""
         if self.currentLog is not None:
             f = open(self.currentLog, 'r')
@@ -52,7 +50,7 @@ class Logger():
                     line = ""
                     try:
                         flt = float(row[0][1:-1])
-                        stamp = datetime.datetime.fromtimestamp(flt)
+                        stamp = datetime.fromtimestamp(flt)
                     except ValueError:
                         stamp = "Invalid timestamp"
                     line += str(stamp)
@@ -65,10 +63,10 @@ class Logger():
 
 	
 #log = Logger("test")
-#log.__enter__()
-#log.append(45)
-#log.append(872)
-#log.append(6)
-#log.__exit__()
-#log.printLog()
+#log.openLog()
+#log.append(45, datetime.now())
+#log.append(872, datetime.now())
+#log.append(6, datetime.now())
+#log.closeLog()
+#log.decodeLastLog()
 

@@ -1,3 +1,4 @@
+from datetime import datetime
 import time
 import zope.event
 import picamera
@@ -26,13 +27,24 @@ class Leda:
     def start(self):
         while True:
             time_intial = time.process_time()
-            #get sensor data from uart (WIP)
-            self.log.append(ledaSerial.caputure())
-            #catch camera finished capture event.... i think
-            ledaCam.capture()
+            captureAll()
+
             delta = time.process_time() - time_initial
             if fairly_often > delta:
                 time.sleep(fairly_often - delta)
+
+
+    def captureAll(self):
+        #timestamp is beginning of data capture
+        #!!Some delay possible
+        now = datetime.now() 
+        #ISSUE:  must launch data capture and camera NOW to ensure validity of time stamp
+        #Soln:  threads?  event library?
+
+        #get sensor data from uart (WIP)
+        self.log.append(ledaSerial.caputure(), now)
+        #catch camera finished capture event.... i think
+        ledaCam.capture(now)
 
 
     #def handle(self, event):
