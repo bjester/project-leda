@@ -17,7 +17,7 @@ Current Development:
 - Scheduler (Leda object) -- using zope.event (asyncio requires python 3.4+ but our serial driver needs 2.7)
                           -- Camera takes a very long time to capture.  May be largest bottleneck.
 - Daughter Board          -- Sensor data capture by AVR daughter board, spec being built by Julian and Doug
-- UART object             -- skeletal, needs Daughter Board spec
+- UART object             -- needs timeout added, needs Daughter Board spec, functional
 - Post-capture Decoder    -- reads Log files, converts raw data from sensors into useful data 
 - Integration testing     
 

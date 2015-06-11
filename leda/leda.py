@@ -6,7 +6,6 @@ from device import uart #uart requires python2.7
 from data import logger
 #from event import capture_image
 
-
 fairly_often = 1000
 
 
