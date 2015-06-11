@@ -20,6 +20,7 @@ Current Development:
 - UART object             -- needs timeout added, needs Daughter Board spec, functional
 - Post-capture Decoder    -- reads Log files, converts raw data from sensors into useful data 
 - Integration testing     
+- Cron job keep-alive     -- not started
 
 No longer being developed:
 - GPS object              -- Opting for self-contained, proprietary solution
