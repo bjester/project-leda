@@ -1,4 +1,4 @@
-Project Leda
+roject Leda
 ============
 
 A high-altitude balloon (HAB) project which was founded by students of Palomar Community College and carried on by students of Cal State San Marcos.  For more information, please visit http://projectleda.org/ or contact the students involved.
@@ -9,6 +9,7 @@ Dependencies:
 - python 2.7 (using serial library which is unsupported in python 3.x)
 - PiCamera installed and activated through raspi-config
 - python-pkg-resources python-zope.event installed through apt-get
+- If using gps, apt-get install gpsd gpsd-clients python-gps ntp
 
 
 
@@ -20,7 +21,7 @@ Current Development:
 - UART object             -- needs timeout added, needs Daughter Board spec, functional
 - Post-capture Decoder    -- reads Log files, converts raw data from sensors into useful data 
 - Integration testing     
-- Cron job keep-alive     -- not started
+- Cron job keep-alive     -- also needs to ensure gps config is alive if that is used as rtc
 
 No longer being developed:
 - GPS object              -- Opting for self-contained, proprietary solution
@@ -30,3 +31,4 @@ No longer being developed:
 
 Primary Issues:
 - Real-time, temperature controlled clock needed by RPi for accurate time stamping data and in case of power cycle
+- If using GPS as an rtc, then must ensure that the GPS is shielded from the third-party telemetry module

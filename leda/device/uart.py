@@ -14,6 +14,7 @@ class Uart:
         #self.ser.flushInput()
 
 
+    # EXPECT >750ms to pass between sending request and receiving ack
     #1. timeout -> set up by python automatically
     #2. \n can be encountered in middle of packet (unlikely) but byte for byte probably safer
     def capture(self):
@@ -31,9 +32,9 @@ class Uart:
         #time.sleep(1)
         # read the data; 14 bytes
         result = []
-        for x in range(0, RECEIVED_BYTES):
-            result += self.ser.readline() 
-        return str(result)
+        for x in range(0, self.RECEIVED_BYTES):
+            result += self.ser.read() 
+        return result
 
     def close(self):
         """If necessary, deallocate resources"""
@@ -41,12 +42,12 @@ class Uart:
 
 
 #TEST AREA
-uart = Uart("/dev/ttyACM0", 38400, 1000)
-cap = uart.capture()
-print("Received bad data" if cap == False else cap)
-cap = uart.capture()
-print("Received bad data" if cap == False else cap)
-cap = uart.capture()
-print("Received bad data" if cap == False else cap)
-uart.close()
+#uart = Uart("/dev/ttyACM0", 38400, 1000)
+#cap = uart.capture()
+#print("Received bad data" if cap == False else cap)
+#cap = uart.capture()
+#print("Received bad data" if cap == False else cap)
+#cap = uart.capture()
+#print("Received bad data" if cap == False else cap)
+#uart.close()
 

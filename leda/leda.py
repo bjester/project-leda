@@ -43,7 +43,7 @@ class Leda:
         #get sensor data from uart (WIP)
         self.log.append(ledaSerial.caputure(), now)
         #catch camera finished capture event.... i think
-        ledaCam.capture(now)
+        #ledaCam.capture(now)
 
 
     #def handle(self, event):
