@@ -32,3 +32,4 @@ No longer being developed:
 Primary Issues:
 - Real-time, temperature controlled clock needed by RPi for accurate time stamping data and in case of power cycle
 - If using GPS as an rtc, then must ensure that the GPS is shielded from the third-party telemetry module
+- Python is slow.  If it's too slow, Julian suggests cron job capture of data from daughter board.  Camera init and tear-down is really slow so we probably don't want to cron image captures.

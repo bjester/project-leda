@@ -2,7 +2,7 @@ from datetime import datetime
 import time
 import zope.event
 import picamera
-from device import uart #uart requires python2.7
+from device import camera,uart #uart requires python2.7
 from data import logger
 #from event import capture_image
 
@@ -18,7 +18,7 @@ class Leda:
         self.cam_period       = cam_period
         self.serial_period    = serial_period 
         # initialize devices
-        self.cam              = camera.Camera(image_path)
+        #self.cam              = camera.Camera(image_path)
         self.log              = logger.Logger(log_name)
         self.uart             = uart.Uart(serial_path, baudrate, serial_timeout)
 
