@@ -67,7 +67,7 @@ void leda_setup(void)
         // Clear the sensor status bit for DS1631 if it fails setup.
         sensorStatus &= (uint8_t)~(_BV(7));
         
-    
+    PORTB &= (uint8_t)~(_BV(PB5));
 
 } // End of leda_setup()
 
