@@ -66,7 +66,8 @@ void leda_setup(void)
     if(setup_DS1631() != 0)
         // Clear the sensor status bit for DS1631 if it fails setup.
         sensorStatus &= (uint8_t)~(_BV(7));
-        
+    
+    // Disable the LED on pin 13. 
     PORTB &= (uint8_t)~(_BV(PB5));
 
 } // End of leda_setup()
