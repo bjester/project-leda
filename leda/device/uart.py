@@ -5,6 +5,7 @@ import io
 
 class Uart:
     RECEIVED_BYTES = 26
+    CMD_BYTES = 2
 
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
@@ -22,7 +23,9 @@ class Uart:
         # request 'S\n'
         self.ser.write("S\n")
         # wait for Ack that data is ready  (receive 'A\n')
-        ack = self.ser.readline();
+        ack = ""
+        for x in range(0, self.CMD_BYTES):
+            ack += self.ser.read();
         if ack != "Z\n":
             return False # received bad data
         print("Ack received")
@@ -34,7 +37,7 @@ class Uart:
         result = []
         for x in range(0, self.RECEIVED_BYTES):
             result += self.ser.read() 
-        return result
+        return "".join(result)
 
     def close(self):
         """If necessary, deallocate resources"""

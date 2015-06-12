@@ -20,17 +20,19 @@ class Leda:
         # initialize devices
         #self.cam              = camera.Camera(image_path)
         self.log              = logger.Logger(log_name)
+        self.log.open()
         self.uart             = uart.Uart(serial_path, baudrate, serial_timeout)
 
 
     def start(self):
+        fairlyOftenInSeconds = fairly_often/1000
         while True:
-            time_intial = time.process_time()
-            captureAll()
+            time_initial = time.time()
+            self.captureAll()
 
-            delta = time.process_time() - time_initial
-            if fairly_often > delta:
-                time.sleep(fairly_often - delta)
+            delta = time.time() - time_initial
+            if fairlyOftenInSeconds > delta:
+                time.sleep(fairlyOftenInSeconds - delta) #this may not work since its arguments are in seconds
 
 
     def captureAll(self):
@@ -41,7 +43,7 @@ class Leda:
         #Soln:  threads?  event library?
 
         #get sensor data from uart (WIP)
-        self.log.append(ledaSerial.caputure(), now)
+        self.log.append(self.uart.capture(), now)
         #catch camera finished capture event.... i think
         #ledaCam.capture(now)
 

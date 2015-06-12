@@ -17,7 +17,7 @@ class Logger():
         self.openFile = None #required by close()
         self.fileHandle = None #csv file
 
-    def openLog(self):
+    def open(self):
         """Start file logging, add header to file"""
         self.currentLog = self.fileName + " " + time.asctime(time.localtime()) + ".csv" # timestamp ensures unique file name each run 
         self.openFile = open(self.currentLog, 'w')
@@ -30,9 +30,9 @@ class Logger():
                    [data]]
             self.fileHandle.writerow(row)
         else:
-            print("Must call Logger.begin() before Logger.append()")
+            print("Must call Logger.open() before Logger.append()")
 
-    def closeLog(self):
+    def close(self):
         """End logging"""
         if self.fileHandle is not None:
             self.openFile.close()
