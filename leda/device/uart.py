@@ -12,8 +12,18 @@ class Uart:
         self.device = device_path
         toutSeconds = tout/1000
         self.ser = serial.Serial(device_path, baudrate=baud, timeout=toutSeconds)
-        #self.ser.flushInput()
+        time.sleep(1) #must give serial time to start
+        self.ser.readline() #serial sends "LEDA\n" upon establishing connection
+        self.ser.flushInput()
 
+
+    def reset(self):
+        """If receiving bad data, reset daughter board"""
+        self.ser.flushInput()
+        self.ser.write("W\n");
+        time.sleep(1) #must give serial time to start
+        self.ser.readline() #serial sends "LEDA\n" upon establishing connection
+        self.ser.flushInput()
 
     # EXPECT >750ms to pass between sending request and receiving ack
     #1. timeout -> set up by python automatically
@@ -26,13 +36,13 @@ class Uart:
         ack = ""
         for x in range(0, self.CMD_BYTES):
             ack += self.ser.read();
+        ack = "".join(ack)
         if ack != "Z\n":
             return False # received bad data
         print("Ack received")
         #print str(what)
         # request the data
         self.ser.write("R\n")
-        #time.sleep(1)
         # read the data; 14 bytes
         result = []
         for x in range(0, self.RECEIVED_BYTES):
@@ -45,7 +55,7 @@ class Uart:
 
 
 #TEST AREA
-#uart = Uart("/dev/ttyACM0", 38400, 1000)
+#uart = Uart("/dev/leda-db", 38400, 1000)
 #cap = uart.capture()
 #print("Received bad data" if cap == False else cap)
 #cap = uart.capture()

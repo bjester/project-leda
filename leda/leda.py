@@ -32,7 +32,7 @@ class Leda:
 
             delta = time.time() - time_initial
             if fairlyOftenInSeconds > delta:
-                time.sleep(fairlyOftenInSeconds - delta) #this may not work since its arguments are in seconds
+                time.sleep(fairlyOftenInSeconds - delta) 
 
 
     def captureAll(self):
@@ -43,7 +43,12 @@ class Leda:
         #Soln:  threads?  event library?
 
         #get sensor data from uart (WIP)
-        self.log.append(self.uart.capture(), now)
+        sensorData = self.uart.capture()
+        if sensorData == False:
+            self.uart.reset()
+            print "Bad data from daughter board"
+        else:
+            self.log.append(sensorData, now)
         #catch camera finished capture event.... i think
         #ledaCam.capture(now)
 
