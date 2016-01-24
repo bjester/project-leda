@@ -1,7 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+##!/usr/local/bin/python3.5
 from leda import leda
 import os
 import time
+
+import sys
+print(sys.version)
 
 
 
@@ -12,7 +16,8 @@ cam_period = 5                      #in seconds
 
 # Daughter (sensor) board over twi
 twi_period = 1                      #in seconds
-twi_path = "/dev/leda-db"           #db configed to appear here
+#twi_path = "/dev/leda-db"           #db configed to appear here
+twi_path = "/dev/ttyACM0"           #db appears here by default
 twi_baud = 38400
 twi_timeout= 1                      #in seconds
 
@@ -46,5 +51,6 @@ if __name__ == "__main__":
                   twi_timeout)
 
     # launch the system
-    projectLeda.start() 
+    print("Launching Leda")
+    projectLeda.infinite_loop() 
 
