@@ -10,7 +10,7 @@ class Uart:
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
         self.device = device_path
-        toutSeconds = tout/1000
+        toutSeconds = tout
         self.ser = serial.Serial(device_path, baudrate=baud, timeout=toutSeconds)
         time.sleep(1) #must give serial time to start
         self.ser.readline() #serial sends "LEDA\n" upon establishing connection

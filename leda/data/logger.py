@@ -10,17 +10,17 @@ import csv
 class Logger():
     """Data logger, writes as CSV"""
 
-    def __init__(self, fileName):
+    def __init__(self, path):
         """Constructor, set file name for logging"""
-        self.fileName = fileName
+        self.path = path
         self.currentLog = None
         self.openFile = None #required by close()
         self.fileHandle = None #csv file
 
     def open(self):
         """Start file logging, add header to file"""
-        self.currentLog = self.fileName + " " + time.asctime(time.localtime()) + ".csv" # timestamp ensures unique file name each run 
-        self.openFile = open(self.currentLog, 'w')
+        self.currentLog = self.path + "/rawdata.csv"
+        self.openFile = open(self.currentLog, 'w', 1) #line buffered file
         self.fileHandle = csv.writer(self.openFile)
 
     def append(self, data, timeStamp):
