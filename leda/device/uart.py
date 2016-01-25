@@ -5,7 +5,11 @@ import io
 
 class Uart:
     RECEIVED_BYTES = 26
-    CMD_BYTES = 2
+    SIZE_CMD = 2 #readline doesn't use this
+    CMD_ACK = 'Z\n'
+    CMD_REQUEST = 'S\n'
+    CMD_READ = 'R\n'
+    CMD_RESET = 'W\n'
 
     def __init__(self, device_path, baud, tout):
         """Init resources and attach interval for recurring commands"""
@@ -20,7 +24,7 @@ class Uart:
     def reset(self):
         """If receiving bad data, reset daughter board"""
         self.ser.flushInput()
-        self.ser.write("W\n");
+        self.ser.write(bytearray(self.CMD_RESET, 'ascii'))
         time.sleep(1) #must give serial time to start
         self.ser.readline() #serial sends "LEDA\n" upon establishing connection
         self.ser.flushInput()
@@ -30,37 +34,19 @@ class Uart:
     #2. \n can be encountered in middle of packet (unlikely) but byte for byte probably safer
     def capture(self):
         """Capture all daughter board sensor data"""
-        # request 'S\n'
-        self.ser.write("S\n")
-        # wait for Ack that data is ready  (receive 'A\n')
-        ack = ""
-        for x in range(0, self.CMD_BYTES):
-            ack += self.ser.read();
-        ack = "".join(ack)
-        if ack != "Z\n":
+        # send request to begin ADC conversion
+        self.ser.write(bytearray(self.CMD_REQUEST, 'ascii'))
+        # wait for Ack indicating data ready to send
+        ack = self.ser.readline().decode('ascii')
+        if ack != self.CMD_ACK:
             return False # received bad data
-        print("Ack received")
-        #print str(what)
         # request the data
-        self.ser.write("R\n")
+        self.ser.write(bytearray(self.CMD_READ, 'ascii'))
         # read the data; 14 bytes
-        result = []
-        for x in range(0, self.RECEIVED_BYTES):
-            result += self.ser.read() 
-        return "".join(result)
+        return self.ser.readline().decode('ascii')
 
     def close(self):
         """If necessary, deallocate resources"""
         self.ser.close()
 
-
-#TEST AREA
-#uart = Uart("/dev/leda-db", 38400, 1000)
-#cap = uart.capture()
-#print("Received bad data" if cap == False else cap)
-#cap = uart.capture()
-#print("Received bad data" if cap == False else cap)
-#cap = uart.capture()
-#print("Received bad data" if cap == False else cap)
-#uart.close()
 

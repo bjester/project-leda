@@ -19,17 +19,16 @@ class Leda:
         self.uart= uart.Uart(serial_path, baudrate, serial_timeout)
 
 
-    def log_data(self):
+    def log_data(self, timestamp):
         print("LoggingData")
-        print("Not Yet Implemented")
-        #get sensor data from uart (WIP)
-        #sensorData = self.uart.capture()
-        #if sensorData == False:
-        #    self.uart.reset()
-        #    print("Bad data from daughter board")
-        #else:
-        #    self.log.append(sensorData, begin)
-        #    print("data captured")
+        #get sensor data from uart
+        sensorData = self.uart.capture()
+        if sensorData == False:
+            self.uart.reset()
+            print("Bad data from daughter board")
+        else:
+            self.log.append(sensorData, timestamp)
+            print("data captured")
 
     def take_picture(self, time):
         print("TakingPicture")
@@ -46,7 +45,8 @@ class Leda:
         tick = 0
         while True:
             begin = time.clock_gettime(time.CLOCK_MONOTONIC)
-            t1 = threading.Thread(target=self.log_data)
+            stamp = time.time()
+            t1 = threading.Thread(target=self.log_data, args=(stamp,))
             t1.start()
             if tick >= wait:
                 tick = 0

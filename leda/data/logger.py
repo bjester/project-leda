@@ -26,7 +26,7 @@ class Logger():
     def append(self, data, timeStamp):
         """Record data row"""
         if self.fileHandle is not None:
-            row = [[time.mktime(timeStamp.timetuple())],
+            row = [[datetime.fromtimestamp(timeStamp).strftime('%Y-%m-%d %H:%M:%S')],
                    [data]]
             self.fileHandle.writerow(row)
         else:
