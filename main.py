@@ -5,7 +5,7 @@ import os
 import time
 
 import sys
-print(sys.version)
+print("Python version " + sys.version)
 
 
 
@@ -29,13 +29,9 @@ twi_timeout= 1                      #in seconds
 # ensure only one instance of Project Leda runs at once
 if __name__ == "__main__":
 
-    # setup GPS for time if no RTC configured 
-    #os.system("sudo killall -11 gpsd")
-    #os.system("sudo gpsd /dev/ttyUSB0 -F /var/run/gpsd.pid")
 
-    
     # create directory for this run 
-    newDir = "Deployment " + time.asctime(time.localtime()) + "/"
+    newDir = "/home/pi/project-leda/Deployment " + time.asctime(time.localtime()) + "/"
     newPicDir = newDir + "pictures/"
     os.mkdir(newDir)
     os.mkdir(newPicDir)

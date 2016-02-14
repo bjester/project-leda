@@ -39,14 +39,23 @@ class Uart:
         # wait for Ack indicating data ready to send
         ack = self.ser.readline().decode('ascii')
         if ack != self.CMD_ACK:
-            return False # received bad data
+            self.reset()
+            return False #received bad data
         # request the data
         self.ser.write(bytearray(self.CMD_READ, 'ascii'))
         # read the data; 14 bytes
-        return self.ser.readline().decode('ascii')
+        data = self.ser.readline()
+        checksum = 0
+        data_body = data[0:-2] #2nd to last byte is XOR checksum
+        for x in data_body:
+            checksum ^= int(x)
+        #print("checksum: " + str(checksum) + " vs " + str(int(data[-2])))
+        if (checksum == int(data[-2])):
+            self.reset()
+            return False #recieved bad data
+        return data.decode('ascii')
 
     def close(self):
         """If necessary, deallocate resources"""
         self.ser.close()
-
 

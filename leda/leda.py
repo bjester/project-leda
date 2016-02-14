@@ -44,7 +44,9 @@ class Leda:
         wait = 4
         tick = 0
         while True:
+            #monotonic clock will not change as sytem time changes
             begin = time.clock_gettime(time.CLOCK_MONOTONIC)
+            #system time can be converted to date/time stamp
             stamp = time.time()
             t1 = threading.Thread(target=self.log_data, args=(stamp,))
             t1.start()
