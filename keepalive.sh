@@ -1,19 +1,16 @@
 #!/bin/bash
+# to counter wandering parent process, use pgrep
+# to ensure leda stays alive
 
 
-
-PIDFILE="$HOME/tmp/leda.pid"
 
 while true
 do
-    if [ -e "${PIDFILE}" ] && (ps -u $(whoami) -opid= |
-        grep -P "^\s*$(cat ${PIDFILE})$" &> /dev/null); then
-        echo "Already running."
-    else 
+    pgrep main.py > $HOME/tmp/ledaLastPID.txt
+    if [ $? -eq 1 ]
+    then
         $HOME/project-leda/main.py > $HOME/tmp/leda.log &
-        echo $! > "${PIDFILE}"
-        chmod 644 "${PIDFILE}"
-        echo "Watchdog restarting LEDA"
+        echo "Watchdog restarting LEDA at $(date)"
     fi
     sleep 1
 done
