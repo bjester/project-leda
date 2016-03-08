@@ -1,0 +1,26 @@
+  Pre-Flight Procedure
+
+1. Verify that the RTC battery provides 3.6V and is of the rechargeable lithium ion type or a regular battery if the recharge circuit has been disabled.  (See the section on setting up the RTC on the Complete Setup Guide if you're not sure what you have)  
+  
+2. Before powering RPi, connect all devices.
+     RTC:  	GND  9
+		SDA  3
+		SDC  5
+		VCC  4
+
+     AVR-Rpi UART:      
+		GND  6
+		RX   8    (uart's rx to Rpi's tx)
+		TX   10
+
+- <Overnight RTC test>
+
+3. Run "sudo raspi-config".  Under advanced options, enable i2c.  Also enable the raspi camera.  When prompted, reboot the RPi.  
+
+4. Run "raspi-still -o test.jpg".  Verify that the photo is good using either an HDMI cable and screen or a network.  Verify that RPi is connected to the same network as any other PC.  Woof the test image; run "woof test.jpg" and retrieve the image by using the networked PC's web browser to access the IP address given by woof.  Verify that the image was successfully captured.  
+
+5. Run "sudo i2cdetect -y 1".  Verify that i2cdetect shows two devices, 57 and UU.  UU should be in the location 68, as 68 is the hex address of the RTC module.  UU indicates that this deviced is being used by Raspbian to set the local time.  
+
+6. (If you tested the battery, then the time stored on the RTC will need to be set to the proper time)  Verify that the time stored on the RTC matches the real time using the commands "sudo ntpd -gq; date" to get the current time and then "sudo hwclock -r" to see the time stored on the RTC.  If the time doesn't match exactly and you don't have an internet connection, then running command FORMATTED like "sudo date -s 10 SEP 2015 13:00:00" can be used to set the system time.  Once the system time is set correctly, write it to the RTC using "sudo hwclock -w".
+
+7.  <Verify that the project leda system is running>

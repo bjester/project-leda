@@ -1,0 +1,52 @@
+If you have the hardware of the existing platform in hand and want to know what steps need to be taken to ensure a successful deployment, please refer to Pre-FlightProcedure.txt.  This guide should contain the information necessary to go from brand new hardware to a fully functioning platform ready for the pre-flight check.
+
+
+I believe the hardware was chosen for it's suitability to the expected conditions; a few sensors were expensive and only basic soldering was required.  <List of hardware>  
+
+
+Download the current version of Raspbian Lite from https://www.raspberrypi.org/downloads/raspbian/   (We did choose the lite version)
+
+
+Ensure the download was successful by ensuring the SHA-1 checksum matches the downloaded file.  
+
+
+Write the downloaded image to the SD card.  Guides can be found at https://www.raspberrypi.org/documentation/installation/installing-images/README.md
+
+
+Once you have the image written to the SD card, set up either an HDMI monitor and USB keyboard or UART and the linux program screen (see Rpi pinout)
+
+
+Expand the filesytem using the command and then reboot the Rpi.
+sudo raspi-config
+
+
+For the install, internet access is needed.  Ethernet works by default in raspbian.  
+
+
+sudo apt-get update; sudo apt-get upgrade -y; sudo apt-get install -y git python3 python3-setuptools python3-picamera python3-serial python3-smbus python-smbus i2c-tools
+
+
+Clone the project Leda code into the user pi's home directory
+cd; git clone https://github.com/bjester/project-leda.git
+
+Set the executables permissions
+chmod 550 watchdog.sh; chmod 550 install.sh; chmod 550 main.py
+
+
+We need I2C for the RTC.  Enable it using raspi-config, under the advanced menu.  If you're having trouble, here's a good guide http://www.raspberrypi-spy.co.uk/2014/11/enabling-the-i2c-interface-on-the-raspberry-pi/
+
+
+Insalling the RTC and setting up the Rpi to set itself to its clock on reboot is pretty easy but requires a little bit of desoldering.  Be sure you've verified that the RTC clock is set Very good guide at http://www.raspberrypi-spy.co.uk/2015/05/adding-a-ds3231-real-time-clock-to-the-raspberry-pi/
+
+
+Connect the camera module to the Rpi (The camera module is especially susceptible to death by static electricity so be careful!) and ensure that both ends are properly seated.  These connectors tend to loosen.  
+sudo raspi-config
+
+
+Installing the sensor board is painless.  The USB B cable is all that you'll need for power and data.
+
+<Set up the sensor board sensors (or did we decide to print a PCB?)>
+
+
+Once all of the above is done (and hopefully verified), running the install script will ensure that, on boot, leda will launch and a script will ensure it keeps runnning.
+sudo ./install
