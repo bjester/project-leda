@@ -1,3 +1,5 @@
+!#/bin/python3
+
 import csv
 import fractions
 
@@ -35,8 +37,7 @@ def temp_DS1631(value):
     is_positive =  -1 if ((value & signmask) > 1) else 1
     # semantics of is_positive v.s is_negative may be flipped around, 
     # but for now it just works.
-    value = ~value if (is_positive > 0) else value
-    wholenum = (~value & intmask) >> 8
+    value = ~value if (is_positive > 0) else value wholenum = (~value & intmask) >> 8
     # got whole number- at this point 1's complement not needed
     value += 0x10 if (is_positive > 0) else 0x0
     # add for 2's complement of 0001 0000 if negative sign 
@@ -55,18 +56,25 @@ def temp_DS1631(value):
     # returning non-mixed notation
     return (str(is_positive * (wholenum * 16 + fractional)) + '/' + str(16))
 
-def pressure1(value):
+def pressure_MPX5100(value):
+    #Vout = Vout = Vs(P * 0.009 + 0.04) +- (PressureError * TempMult * 0.009 * Vs)
+    #where Vs = 5.0V +- 0.25V
     return value
 
-def pressure2(value):
+def pressure_MPX4115V(value):
+    #Vout = Vs(P * 0.007652 + 0.92) +- (PressureError * TempFactor * 0.007652 * Vs)
+    #where Vs = 5V +- 0.25 Vdc
     return value
 
-def humidity(value):
+def humidity_HIH8120h(value):
+    #Humidity (%RH) = ( Humidity_14bit_ADC / (2^14)-2 ) * 100
     return value
 
-def temp(value):
+def temp_HIH8120t(value):
+    #Temp (celsius) = (( Temp_14bit_ADC / (2^14)-2 ) * 165 ) - 40
     return value
 
+# XOR checksum
 def checksum(value):
     return value
 
