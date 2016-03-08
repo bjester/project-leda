@@ -56,11 +56,15 @@ def temp_DS1631(value):
     # returning non-mixed notation
     return (str(is_positive * (wholenum * 16 + fractional)) + '/' + str(16))
 
+# AVR read this value using ADC
+# How do we process this?
 def pressure_MPX5100(value):
     #Vout = Vout = Vs(P * 0.009 + 0.04) +- (PressureError * TempMult * 0.009 * Vs)
     #where Vs = 5.0V +- 0.25V
     return value
 
+# AVR read this value using ADC
+# How do we process this?
 def pressure_MPX4115V(value):
     #Vout = Vs(P * 0.007652 + 0.92) +- (PressureError * TempFactor * 0.007652 * Vs)
     #where Vs = 5V +- 0.25 Vdc
@@ -68,11 +72,11 @@ def pressure_MPX4115V(value):
 
 def humidity_HIH8120h(value):
     #Humidity (%RH) = ( Humidity_14bit_ADC / (2^14)-2 ) * 100
-    return value
+    return "( " + str(value) + "/ (2^14)-2 ) * 100 )"  
 
 def temp_HIH8120t(value):
     #Temp (celsius) = (( Temp_14bit_ADC / (2^14)-2 ) * 165 ) - 40
-    return value
+    return "( " + str(value) + "/ (2^14)-2 ) * 165 ) - 40"  
 
 # XOR checksum
 def checksum(value):
