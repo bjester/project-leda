@@ -1,0 +1,25 @@
+http://raspi.tv/2012/mount-a-usb-flash-drive-on-raspberry-pi
+http://www.raspberry-projects.com/pi/programming-in-c/uart-serial-port/using-the-uart
+https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/
+
+
+tar xJf Python-3.5.1.tar.xz
+tar -zxvf pyserial-3.0.1.tar.gz
+
+
+
+
+
+
+
+  Cut Content
+
+tar -zxvf celery-3.1.20.tar.gz  (requires setuptools)
+For the additional modules we need to add to the python3 install, navigate into each unzipped directory and type
+sudo python3 setup.py install
+
+
+- sudo apt-get install python python-pkg-resources python-zope.event gpsd gpsd-clients python-gps ntp 
+
+
+

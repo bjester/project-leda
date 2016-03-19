@@ -1,0 +1,32 @@
+    LEDA TODO
+
+- test keepalive; ensure the mutex in main is working!
+- decode MPX pressure sensors how?  Hint here? http://www.scienceprog.com/interfacing-mpxv5100-pressure-sensor-to-atmega8/
+- GPS for elevation logging added	
+- Is it necessary to calibrate the sensors (other than our wide range thermometer) for the low temperature/low pressure of high altitudes
+- Should we be worried about EMI?
+- build basic application to decode data after payload retrieved
+- POST for both devices?
+	
+	
+	RPi:
+raspi-config settings to not have pi wait for networking on startup when we're ready
+RTC DOES NOT APPEAR TO CHARGE ITS BATTERY
+* pid-based keepalive fails when python (Threading module?) migrates across processes  -->  'pgrep program' followed by check that $? is 0 indicates leda is alive
+* Removing the debug logs for keepalive and any other unnecessary file writes
+* Test that all deadlines are met with current configuration
+* Implement the XOR checksum (find out if the AVR dummy program is sending checksum or arbitrary value) (XOR is commutative)
+***might take too long and desync with self.reset() called in uart.py
+* Preflight script to set RTC when network time is accessible
+
+- cd; git clone https://github.com/bjester/project-leda.git; ln -s ~/projectt
+-leda/linux-util/98-leda.rules /etc/udev/rules.d/.; udevadm control --reloadd
+-rules; ~project-leda/linux-util/installCronTab.sh
+
+- more robust error logging (python logging library?)
+- character device files?  assign the name that appears in /dev how?
+- Python script main should intercept ctrl-c and exit 
+- if daughter board reports bad data and resets, should LOG that error somewhere on the RPi instead of only printing to stdout
+* check yellow tabs for things I missed
+
+extra- scale photo size and frequency to flight time (requires estimated flight time, remaining sd memory to calculate maximum photo file size)
