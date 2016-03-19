@@ -1,6 +1,5 @@
     LEDA TODO
 
-- test keepalive; ensure the mutex in main is working!
 - decode MPX pressure sensors how?  Hint here? http://www.scienceprog.com/interfacing-mpxv5100-pressure-sensor-to-atmega8/
 - GPS for elevation logging added	
 - Is it necessary to calibrate the sensors (other than our wide range thermometer) for the low temperature/low pressure of high altitudes
