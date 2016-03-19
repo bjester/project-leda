@@ -35,6 +35,7 @@ chmod 550 watchdog.sh; chmod 550 install.sh; chmod 550 main.py
 
 We need I2C for the RTC.  Enable it using raspi-config, under the advanced menu.  If you're having trouble, here's a good guide http://www.raspberrypi-spy.co.uk/2014/11/enabling-the-i2c-interface-on-the-raspberry-pi/
 
+<GPS hardware, gpsd, gpsd-clients, python-gps install>
 
 Insalling the RTC and setting up the Rpi to set itself to its clock on reboot is pretty easy but requires a little bit of desoldering.  Be sure you've verified that the RTC clock is set Very good guide at http://www.raspberrypi-spy.co.uk/2015/05/adding-a-ds3231-real-time-clock-to-the-raspberry-pi/
 
