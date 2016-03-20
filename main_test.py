@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 ##!/usr/local/bin/python3.5
-from leda import leda, factory
+from leda import leda
+from test import factory
 import os
 import time
 
@@ -32,8 +33,8 @@ if __name__ == "__main__":
     # create directory for this run 
     output_dir = "/home/pi/project-leda/Deployment " + time.asctime(time.localtime()) + "/"
     output_pic_dir = output_dir + "pictures/"
-    os.mkdir(output_dir)
-    os.mkdir(output_pic_dir)
+    # os.mkdir(output_dir)
+    # os.mkdir(output_pic_dir)
 
     leda_factory = factory.Factory()
 
