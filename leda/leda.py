@@ -1,5 +1,6 @@
 import threading
 import time
+import signal
 
 
 class Leda:
@@ -16,6 +17,14 @@ class Leda:
 
         self.log = logger_obj
         self.log.open()
+
+        self.kill_now = False
+
+        signal.signal(signal.SIGINT, self.exit_gracefully)
+        signal.signal(signal.SIGTERM, self.exit_gracefully)
+
+    def exit_gracefully(self, signum, frame):
+        self.kill_now = True
 
     def log_data(self, timestamp):
         print("LoggingData")
@@ -39,7 +48,12 @@ class Leda:
         wait = 4
         tick = 0
         while True:
-            # monotonic clock will not change as sytem time changes
+
+            if self.kill_now:
+                print("Quitting")
+                break
+
+            # monotonic clock will not change as system time changes
             begin = time.clock_gettime(time.CLOCK_MONOTONIC)
             # system time can be converted to date/time stamp
             stamp = time.time()
