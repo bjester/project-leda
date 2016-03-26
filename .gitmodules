@@ -1,3 +1,4 @@
-[submodule "leda/gps3"]
-	path = leda/gps3
+[submodule "leda/device/gps3"]
+	path = leda/device/gps3
 	url = https://github.com/wadda/gps3.git
+	ignore = untracked
