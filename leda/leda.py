@@ -1,6 +1,7 @@
 import threading
 import time
 
+
 class Leda:
     """Handles Timing, data capture and logging"""
 
@@ -16,34 +17,31 @@ class Leda:
         self.log = logger_obj
         self.log.open()
 
-
     def log_data(self, timestamp):
         print("LoggingData")
-        #get sensor data from uart
-        sensorData = self.uart.capture()
+        # get sensor data from uart
+        sensor_data = self.uart.capture()
 
-        if sensorData == False:
+        if sensor_data == False:
             self.uart.reset()
             print("Bad data from daughter board")
         else:
-            self.log.append(sensorData, timestamp)
+            self.log.append(sensor_data, timestamp)
             print("data captured")
-
 
     def take_picture(self, time):
         print("TakingPicture")
         self.cam.capture(time)
 
-
-    #requires tasks to finish in their allotted time
+    # requires tasks to finish in their allotted time
     def infinite_loop(self):
         print("Successfully Launched")
         wait = 4
         tick = 0
         while True:
-            #monotonic clock will not change as sytem time changes
+            # monotonic clock will not change as sytem time changes
             begin = time.clock_gettime(time.CLOCK_MONOTONIC)
-            #system time can be converted to date/time stamp
+            # system time can be converted to date/time stamp
             stamp = time.time()
             t1 = threading.Thread(target=self.log_data, args=(stamp,))
             t1.start()

@@ -2,6 +2,7 @@ from datetime import datetime
 import time
 import csv
 
+
 class Logger():
     """Data logger, writes as CSV"""
 
@@ -14,7 +15,7 @@ class Logger():
     def open(self):
         """Start file logging, add header to file"""
         self.currentLog = self.path + "/rawdata.csv"
-        self.openFile = open(self.currentLog, 'w', 1) #line buffered file
+        self.openFile = open(self.currentLog, 'w', 1)  # line buffered file
 
     def append(self, data, timeStamp):
         """Record data row"""

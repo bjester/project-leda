@@ -25,7 +25,7 @@ class Uart:
         print("Uart: closed")
 
 
-class Logger():
+class Logger:
     """Data logger, writes as CSV"""
 
     def __init__(self, path):
