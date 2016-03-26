@@ -24,7 +24,6 @@ RTC DOES NOT APPEAR TO CHARGE ITS BATTERY
 
 - more robust error logging (python logging library?)
 - character device files?  assign the name that appears in /dev how?
-- Python script main should intercept ctrl-c and exit 
 - if daughter board reports bad data and resets, should LOG that error somewhere on the RPi instead of only printing to stdout
 * check yellow tabs for things I missed
 

@@ -1,0 +1,3 @@
+[submodule "leda/gps3"]
+	path = leda/gps3
+	url = https://github.com/wadda/gps3.git
