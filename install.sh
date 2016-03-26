@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create the users temporary directory (logs, etc)
-mkdir /home/pi/tmp
+mkdir -p /home/pi/tmp
 chown pi /home/pi/tmp
 chmod 755 /home/pi/tmp
 
