@@ -1,4 +1,4 @@
-from .device import camera, uart
+from .device import camera, uart, gps
 from .data import logger
 
 
@@ -13,6 +13,9 @@ class Factory:
 
     def build_uart(self, serial_path, baud_rate, serial_timeout):
         return uart.Uart(serial_path, baud_rate, serial_timeout, self.debug)
+
+    def build_gps(self, host, port):
+        return gps.GPS(host, port, self.debug)
 
     def build_logger(self, log_path):
         return logger.Logger(log_path, self.debug)
