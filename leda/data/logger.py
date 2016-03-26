@@ -1,16 +1,15 @@
 from datetime import datetime
-import time
-import csv
 
 
-class Logger():
+class Logger:
     """Data logger, writes as CSV"""
 
-    def __init__(self, path):
+    def __init__(self, path, debug_obj):
         """Constructor, set file name for logging"""
         self.path = path
         self.currentLog = None
-        self.openFile = None 
+        self.openFile = None
+        self.debug = debug_obj
 
     def open(self):
         """Start file logging, add header to file"""
@@ -23,7 +22,7 @@ class Logger():
             row = datetime.fromtimestamp(timeStamp).strftime('%Y-%m-%d %H:%M:%S') + "," + data
             self.openFile.write(row)
         else:
-            print("Must call Logger.open() before Logger.append()")
+            self.debug.write("Must call Logger.open() before Logger.append()")
 
     def close(self):
         """End logging"""

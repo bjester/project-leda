@@ -12,7 +12,7 @@ class Uart:
     CMD_READ = 'R\n'
     CMD_RESET = 'W\n'
 
-    def __init__(self, device_path, baud, tout):
+    def __init__(self, device_path, baud, tout, debug_obj):
         """Init resources and attach interval for recurring commands"""
         self.device = device_path
         tout_seconds = tout
@@ -20,6 +20,7 @@ class Uart:
         time.sleep(1)  # must give serial time to start
         self.ser.readline()  # serial sends "LEDA\n" upon establishing connection
         self.ser.flushInput()
+        self.debug = debug_obj
 
     def reset(self):
         """If receiving bad data, reset daughter board"""

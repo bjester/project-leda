@@ -6,7 +6,7 @@ import signal
 class Leda:
     """Handles Timing, data capture and logging"""
 
-    def __init__(self, camera_obj, cam_period, uart_obj, serial_period, logger_obj):
+    def __init__(self, camera_obj, cam_period, uart_obj, serial_period, logger_obj, debug_obj):
 
         # assign capture periods
         self.cam = camera_obj
@@ -18,6 +18,9 @@ class Leda:
         self.log = logger_obj
         self.log.open()
 
+        self.debug = debug_obj
+        self.debug.open()
+
         self.kill_now = False
 
         signal.signal(signal.SIGINT, self.exit_gracefully)
@@ -27,30 +30,33 @@ class Leda:
         self.kill_now = True
 
     def log_data(self, timestamp):
-        print("LoggingData")
+        self.debug.write("Logging data")
         # get sensor data from uart
         sensor_data = self.uart.capture()
 
         if sensor_data == False:
             self.uart.reset()
-            print("Bad data from daughter board")
+            self.debug.write("Bad data from daughter board")
         else:
             self.log.append(sensor_data, timestamp)
-            print("data captured")
+            self.debug.write("Daughter board data captured")
 
     def take_picture(self, time):
-        print("TakingPicture")
+        self.debug.write("Taking picture")
         self.cam.capture(time)
 
     # requires tasks to finish in their allotted time
     def infinite_loop(self):
-        print("Successfully Launched")
+        self.debug.write("Successfully launched")
         wait = 4
         tick = 0
         while True:
 
             if self.kill_now:
-                print("Quitting")
+                self.debug.write("Quitting")
+                self.log.close()
+                self.uart.close()
+                self.debug.close()
                 break
 
             # monotonic clock will not change as system time changes
