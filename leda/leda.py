@@ -54,8 +54,7 @@ class Leda:
 
         self.gps.wait()
 
-        wait = 4
-        tick = 0
+        tick = 1
         while True:
 
             if self.kill_now:
@@ -72,8 +71,8 @@ class Leda:
             t1 = threading.Thread(target=self.log_data, args=(stamp,))
             t1.start()
 
-            if tick >= wait:
-                tick = 0
+            if tick >= self.cam_period:
+                tick = 1
                 t2 = threading.Thread(target=self.take_picture, args=(begin,))
                 t2.start()
             else:

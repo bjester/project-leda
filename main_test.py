@@ -18,6 +18,8 @@ twi_path = "/dev/ttyACM0"           # db appears here by default
 twi_baud = 38400
 twi_timeout = 1                      # in seconds
 
+gps_host = 'localhost'
+gps_port = '2947'
 
 parser = ArgumentParser()
 parser.add_argument('--debug', dest='debug', action='store_true')
@@ -43,6 +45,7 @@ if __name__ == "__main__":
                     cam_period,
                     leda_factory.build_uart(twi_path, twi_baud, twi_timeout),
                     twi_period,
+                    leda_factory.build_gps(gps_host, gps_port),
                     leda_factory.build_logger(output_dir),
                     debugger)
 

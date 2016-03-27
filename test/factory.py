@@ -27,6 +27,32 @@ class Uart:
         self.debug.write("Uart: closed")
 
 
+class GPS:
+    def __init__(self, host, port, debug_obj):
+        self.debug = debug_obj
+        self.debug.write('GPS: initialized with host {}, and port {}'.format(host, port))
+
+    def wait(self):
+        self.debug.write('GPS: waiting for fix')
+
+    def capture(self):
+        self.debug.write('GPS: capturing data')
+        return [
+            'time',
+            'lat',
+            'long',
+            'alt',
+            'speed',
+            'track',
+            'climb',
+            'mode',
+            'lat_error',
+            'long_error',
+            'alt_error',
+            'speed_error'
+        ]
+
+
 class Logger:
     """Data logger, writes as CSV"""
 
@@ -55,6 +81,9 @@ class Factory:
 
     def build_uart(self, serial_path, baudrate, serial_timeout):
         return Uart(serial_path, baudrate, serial_timeout, self.debug)
+
+    def build_gps(self, host, port):
+        return GPS(host, port, self.debug)
 
     def build_logger(self, log_path):
         return Logger(log_path, self.debug)
